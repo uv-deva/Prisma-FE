@@ -5,13 +5,14 @@ export const tabs = [
     { name: 'prismaLRT', label: 'prismaLRT' },
   ];
  
-  interface VaultCardData {
+  export interface VaultCardData {
     type: VaultType;
     name: string;
     description: string;
     icon : string
     prismLRTDesc? : string
     address?: string
+    prismaType ? :string
 }
 
 export const vaultsCardPrismaData : VaultCardData[] =[

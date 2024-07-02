@@ -11,6 +11,7 @@ const Table: React.FC<TableProps> = ({
   data,
   isPagination = false,
 }) => {
+
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 4;
 
@@ -62,7 +63,7 @@ const Table: React.FC<TableProps> = ({
                 {pool.earned}
               </td>
               <td className="p-4">
-                <Link href={"/earn-manage"} className="bg-lightBlue text-body text-white py-2 px-4 rounded cursor-pointer">
+                <Link href={{pathname:"/earn-manage",query:{address:pool.poolAddress}}} className="bg-lightBlue text-body text-white py-2 px-4 rounded cursor-pointer">
                   Manage
                 </Link>
               </td>

@@ -1,7 +1,6 @@
 "use client";
 
 import StabilityTable from "@/design-systems/Organisms/StabilityTable";
-import { columnData, poolData } from "./utils";
 import PoolTableTemplate from "../PooltableTemplate";
 
 const EarnPageTemplate: React.FC = () => {

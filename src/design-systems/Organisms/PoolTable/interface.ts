@@ -7,6 +7,7 @@ interface PoolData {
     deposits: string;
     earned: string;
     icon: string;
+    
   }
   
   export interface PoolTableProps {

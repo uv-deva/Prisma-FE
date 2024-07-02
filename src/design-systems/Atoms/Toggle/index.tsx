@@ -37,12 +37,12 @@ const Toggle: React.FC<ToggleProps> = ({ defaultCheck = false, onChange }) => {
         >
           <div className={toggleContaineClass}>
             <Typography
-              className={`${toggleClass} ${!toggled ? 'bg-[#fff] font-medium text-[#fff]' : ' text-gray font-normal'}`}
+              className={`${toggleClass} ${!toggled ? '!bg-[#fff] font-medium text-[#fff]' : ' text-gray font-normal'}`}
             ></Typography>
           </div>
           <div className={toggleContaineClass}>
             <Typography
-              className={`${toggleClass} ${toggled ? 'bg-lightBlue font-medium text-lightBlue ' : 'text-gray font-normal '}`}
+              className={`${toggleClass} ${toggled ? '!bg-lightBlue font-medium text-lightBlue ' : 'text-gray font-normal '}`}
             ></Typography>
           </div>
         </div>

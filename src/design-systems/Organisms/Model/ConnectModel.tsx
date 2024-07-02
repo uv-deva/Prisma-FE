@@ -17,8 +17,8 @@ export const ConnectModel = ({ setShowModel, showModel }: any) => {
     connect({ connector });
   };
   return (
-    <div className="h-screen w-screen absolute top-0 bg-black6 flex justify-center items-center bg-no-repeat bg-center bg-cover">
-      <div className="bg-white rounded-md text-left min-h-[440px] max-w-[800px] w-full flex">
+    <div className="h-screen w-screen z-50 absolute top-0 bg-black6 flex justify-center items-center bg-no-repeat bg-center bg-cover">
+      <div className="bg-white z-50 rounded-md text-left min-h-[440px] max-w-[800px] w-full flex">
         <div className="p-4 max-w-[280px] flex justify-between flex-col h-auto border-r-[1px] border-inherit">
           <div className="p-6 gap-4 flex flex-col">
             <Image alt="" src={IMG.prismaLogo} className="h-[56px] w-[56px]" />

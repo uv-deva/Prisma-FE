@@ -1,12 +1,13 @@
 "use client";
 
-import { BackArrow } from "@/design-systems/Atoms/Icons";
 import Typography from "@/design-systems/Atoms/Typography";
 import SelectVaultForm from "@/design-systems/Organisms/SelectVaultForm";
 import { ArrowLeftIcon } from "@heroicons/react/16/solid";
 import Link from "next/link";
+import { SelectVaultsTempProps } from "./interface";
 
-const SelectVaultTemplate: React.FC = () => {
+const SelectVaultTemplate: React.FC<SelectVaultsTempProps> = ({address}) => {
+
   return (
     <div className="">
       <Link
@@ -18,13 +19,15 @@ const SelectVaultTemplate: React.FC = () => {
           Go back to Collateral Selection
         </div>
       </Link>
-      <div className="flex flex-col items-center justify-center">
-        <Typography className="text-darkBlue text-[28px] font-semibold w-1/4 text-center">
+      <div 
+      // className="flex flex-col items-center justify-center"
+      >
+        {/* <Typography className="text-darkBlue text-[28px] font-semibold w-1/4 text-center">
           Determine how much mkUSD you want
-        </Typography>
+        </Typography> */}
 
-        <div className="w-full flex justify-center mt-4">
-          <SelectVaultForm />
+        <div className="w-full flex justify-center">
+          <SelectVaultForm address={address} />
         </div>
       </div>
     </div>

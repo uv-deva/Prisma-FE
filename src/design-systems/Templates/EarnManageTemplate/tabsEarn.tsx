@@ -5,10 +5,11 @@ import {
   StabilityPoolContractAdd,
 } from "@/design-systems/web3Utils/ContractAddress";
 import { ethers } from "ethers";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
 import { toast } from "react-toastify";
 import { useAccount } from "wagmi";
+import { bigPoolData } from "../PooltableTemplate/utils";
 
 const approveToken = async (spenderAdd: any, amount: number) => {
   toast.info("Please wait...");
@@ -41,11 +42,12 @@ const approveToken = async (spenderAdd: any, amount: number) => {
   }
 };
 
-export const Deposit = () => {
+export const Deposit = ({data}:any) => {
   const { address, isConnected } = useAccount();
   const [balance, setBalance] = useState<any>(null);
   const router = useRouter();
   const [deposit, setDeposit] = useState(0);
+
 
   const fetchBalance = async () => {
     if (address) {
@@ -62,7 +64,7 @@ export const Deposit = () => {
     fetchBalance();
   }, []);
   var balanceDisplay = balance && Math.round(balance * 1000) / 1000;
-  console.log("balance", balance);
+
 
   const HandleConnect = async () => {
     if (!isConnected) {
@@ -112,7 +114,7 @@ export const Deposit = () => {
     <div className="">
       <div className="flex justify-between w-full text-lightBlack text-[12px] sm:text-[14px] font-medium">
         <div>
-          Deposit <span className="font-bold">mkUSD</span>
+          Deposit <span className="font-bold">{data?.name}</span>
         </div>
         <div className="!font-normal">
           Balance: <span className="font-bold">{balanceDisplay}</span>
@@ -126,12 +128,12 @@ export const Deposit = () => {
             placeholder="Enter an amount"
             onChange={(e: any) => setDeposit(e.target.value)}
           />
-          <div className="bg-primary rounded py-[1px] px-1 text-white flex items-center text-[11px]">
+          {/* <div className="bg-primary rounded py-[1px] px-1 text-white flex items-center text-[11px]">
             MAX
-          </div>
+          </div> */}
         </div>
         <div className="flex items-center bg-lightBlack p-2 text-white text-[12px] sm:text-[14px] font-bold rounded-r-[7px]">
-          mkUSD
+          {data?.name}
         </div>
       </div>
       <button
@@ -144,11 +146,26 @@ export const Deposit = () => {
   );
 };
 
-export const Withdraw = () => {
+export const Withdraw = ({data}:any) => {
   const { address, isConnected } = useAccount();
   const router = useRouter();
   const [Withdraw, setWithdraw] = useState(0);
-
+  const [balance, setBalance] = useState<any>(null);
+  const fetchBalance = async () => {
+    if (address) {
+      try {
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const balance = await provider.getBalance(address);
+        setBalance(ethers.utils.formatEther(balance));
+      } catch (error) {
+        console.error("Error fetching balance:", error);
+      }
+    }
+  };
+  useEffect(() => {
+    fetchBalance();
+  }, []);
+  var balanceDisplay = balance && Math.round(balance * 1000) / 1000;
   const HandleConnect = async () => {
     if (!isConnected) {
       toast.warning("Please connect your wallet.");
@@ -190,10 +207,10 @@ export const Withdraw = () => {
     <div className="">
       <div className="flex justify-between w-full text-lightBlack text-[12px] sm:text-[14px] font-medium">
         <div>
-          Withdraw <span className="font-bold">mkUSD</span>
+          Withdraw <span className="font-bold">{data.name}</span>
         </div>
         <div className="!font-normal">
-          Balance: <span className="font-bold">0.000</span>
+          Balance: <span className="font-bold">{balanceDisplay}</span>
         </div>
       </div>
       <div className="flex justify-between border-primary border-[1px] rounded-[8px] mt-[4px] mb-[12px]">
@@ -204,12 +221,12 @@ export const Withdraw = () => {
             placeholder="Enter an amount"
             onClick={(e: any) => setWithdraw(e.target.value)}
           />
-          <div className="bg-primary rounded py-[1px] px-1 text-white flex items-center text-[11px]">
+          {/* <div className="bg-primary rounded py-[1px] px-1 text-white flex items-center text-[11px]">
             MAX
-          </div>
+          </div> */}
         </div>
         <div className="flex items-center bg-lightBlack p-2 text-white text-[12px] sm:text-[14px] font-bold rounded-r-[7px]">
-          mkUSD
+          {data.name}
         </div>
       </div>
       <button

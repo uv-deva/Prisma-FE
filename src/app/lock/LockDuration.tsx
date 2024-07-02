@@ -4,7 +4,7 @@ import { SetStateAction, useState } from 'react';
 const LockDuration = () => {
   const [duration, setDuration] = useState(2);
 
-  const handleSliderChange = (e: { target: { value: SetStateAction<number>; }; }) => {
+  const handleSliderChange = (e: any) => {
     setDuration(e.target.value);
   };
 

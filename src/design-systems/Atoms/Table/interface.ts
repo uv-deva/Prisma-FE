@@ -6,6 +6,7 @@ interface PoolData {
     deposits: string;
     earned: string;
     icon: string;
+    poolAddress?:string;
   }
 
 

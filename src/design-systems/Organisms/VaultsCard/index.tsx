@@ -101,20 +101,15 @@ const VaultCard: React.FC<VaultsCardProps> = ({
           </div>
         )}
 
-        <Link
-          href={{
-            pathname: `/select/${address}`,
-            query: { type: cardType },
-          }}
+        <button
+          className={`mx-3 mt-1 ${
+            cardType === "prism" ? "bg-lightBlue" : "bg-[#794DEC] "
+          } text-white font-bold rounded text-md py-[6px] px-4 mb-4`}
+          onClick={() => router.push(`select/${address}`)}
         >
-          <div
-            className={`mx-3 mt-1 ${
-              cardType === "prism" ? "bg-lightBlue" : "bg-[#794DEC] "
-            } text-white font-bold rounded text-md py-[6px] px-4 mb-4`}
-          >
-            Choose {name}-v2
-          </div>
-        </Link>
+          Choose {name}-v2
+        </button>
+        
       </div>
 
       <Image

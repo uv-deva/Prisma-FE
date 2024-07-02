@@ -1,18 +1,13 @@
-"use client"
-import SelectVaultTemplate from '@/design-systems/Templates/SelectVaultTemplate'
-import { useParams } from 'next/navigation'
+"use client";
+import SelectVaultTemplate from "@/design-systems/Templates/SelectVaultTemplate";
+import { SelectVaultPageProps } from "./interface";
 
-
-
-
-const SelectVaultPage: React.FC = () => {
-    const { Address } = useParams()
-
+const SelectVaultPage: React.FC<SelectVaultPageProps> = ({ params }) => {
   return (
     <>
-    <SelectVaultTemplate />
+      <SelectVaultTemplate address={params.Address} />
     </>
-  )
-}
+  );
+};
 
-export default SelectVaultPage
+export default SelectVaultPage;
