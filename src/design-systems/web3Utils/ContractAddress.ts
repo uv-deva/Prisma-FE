@@ -1,0 +1,2 @@
+export const DebtTokenContractAdd = "0x5A8f69876E0583131c8698C63d436d5D71a8C1De" //for Approve method
+export const StabilityPoolContractAdd = "0x2c60199E73D240c6704c91301070DE1DCc8bc0fB"; //for stability pool
