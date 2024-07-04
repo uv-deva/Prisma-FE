@@ -76,9 +76,9 @@ const DaoPageTemplate: React.FC = () => {
         </div>
       </div>
       <div className="flex justify-center p-4">
-        <div className="shadow-md bg-white p-6 rounded-sm justify-between w-full text-start max-w-[1200px]">
+        <div className="shadow-md bg-white rounded-sm justify-between w-full text-start max-w-[1200px]">
 
-        <div className="flex ">
+        <div className="flex p-6">
           <div className="max-w-[400px]">
             <Typography className="text-[24px] font-semibold">
               Governance & Emissions voting

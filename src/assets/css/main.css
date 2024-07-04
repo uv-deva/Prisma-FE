@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import './fonts.css';
+@import "./fonts.css";
 
 @layer base {
   html,
@@ -12,8 +12,8 @@
     @apply text-neutral-100 dark:text-neutral-800;
     @apply bg-light dark:bg-dark;
 
-    --color-primary-800: '#0809EC';
-    --color-primary-500: '#8A8BFF';
+    --color-primary-800: "#0809EC";
+    --color-primary-500: "#8A8BFF";
   }
 
   input::-webkit-outer-spin-button,
@@ -23,11 +23,10 @@
     margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
   }
 
-  input[type='number'] {
+  input[type="number"] {
     -moz-appearance: textfield; /* Firefox */
   }
 }
-
 
 @layer components {
   /* The set of Typography component classes */
@@ -79,11 +78,32 @@
     @apply font-Roboto text-lg font-normal leading-lg tracking-lg;
   }
 
-.gradient-text {
-  background: linear-gradient(90deg, #ff2eab 12%, #ff6c22 27.92%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  .gradient-text {
+    background: linear-gradient(90deg, #ff2eab 12%, #ff6c22 27.92%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
 }
-
+table tbody td {
+  /* font-family: Karla, sans-serif; */
+  font-weight: 400;
+  font-size: 16px;
+  letter-spacing: 0.01071em;
+  display: table-cell;
+  vertical-align: inherit;
+  text-align: left;
+  padding: 15px 16px;
+  color: rgb(0, 34, 55);
+  background: rgb(255, 255, 255);
+  border-bottom: 0.5px solid rgb(226, 231, 240);
+  line-height: 18px;
+  letter-spacing: 0.00938em;
+}
+table thead th {
+  padding: 1px 16px;
+  letter-spacing: 0.00938em;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 14px;
 }

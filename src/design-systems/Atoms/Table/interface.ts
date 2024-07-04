@@ -10,6 +10,16 @@ interface PoolData {
   }
 
 
+  interface RedeemData {
+    owner: string;
+    cr: string;
+    dept: string;
+    newDept: string;
+  
+  }
+
+
+
 
   export interface ColumnData {
     title: string;
@@ -17,7 +27,7 @@ interface PoolData {
   
 
   export interface TableProps {
-    data: PoolData[];
+    data: PoolData[]
     columns : ColumnData[]
     isPagination ?: boolean
   }

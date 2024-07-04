@@ -12,12 +12,13 @@ type TabsProps = {
 export const EmissionTab = () => {
   const [activeTab, setActiveTab] = useState(0);
   const tabs = [
-    { label: "Emission", content: <Emission/> },
-    { label: "Proposals", content: <div>Content for Tab 2</div> },
+    { label: "Emission", content: <Emission /> },
+    { label: "Proposals", content: <Emission /> },
   ];
+
   return (
     <div>
-      <div className="flex ">
+      <div className="flex px-6">
         {tabs.map((tab, index) => (
           <button
             key={index}

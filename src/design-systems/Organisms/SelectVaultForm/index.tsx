@@ -23,7 +23,7 @@ import {
 } from "@/design-systems/web3Utils/ContractAddress";
 import { TroveManager } from "@/design-systems/web3Utils/TroveManager";
 
-const SelectVaultForm: React.FC<VaultsFormProps> = () => {
+const SelectVaultForm: React.FC<VaultsFormProps> = ({urlAddress}) => {
   const { chainId, address } = useAccount();
   const [isSendAutometic, setIsSendAutometic] = useState<boolean>(false);
   const [data, setData] = useState<VaultCardData | undefined>(undefined);
@@ -35,16 +35,17 @@ const SelectVaultForm: React.FC<VaultsFormProps> = () => {
   const [resSuccess, setResSuccess] = useState<boolean>(false);
   const handleTabChange = (tab: string) => setActiveTab(tab);
 
+
   const handleThemeChange = (isChecked: boolean) => {
     setIsSendAutometic(true);
   };
 
   useMemo(() => {
     const cardData = vaultsCardPrismaData.find(
-      (card) => card.address === address
+      (card) => card.address === urlAddress
     );
     setData(cardData);
-  }, [address]);
+  }, [urlAddress]);
 
   const handleApprove = async () => {
     setIsLoadingApprove(true);

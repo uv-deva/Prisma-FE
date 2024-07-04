@@ -1,19 +1,16 @@
 import React, { useState, useEffect } from "react";
-import Button from "@/design-systems/Atoms/Button";
 import Image from "next/image";
-import EarnIcon from "@/assets/Icons/earnedIcon.svg";
-import { TableProps } from "./interface";
+import { RedeemTableProps } from "./interface";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
+import { CopyIcon, RedirectIcon } from "@/design-systems/Atoms/Icons";
 
-const Table: React.FC<TableProps> = ({
+const RedeemTable: React.FC<RedeemTableProps> = ({
   columns,
   data,
   isPagination = false,
 }) => {
-
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 4;
+  const itemsPerPage = 10;
 
   const router = useRouter();
   // Calculate total pages
@@ -36,7 +33,7 @@ const Table: React.FC<TableProps> = ({
     <>
       <table className="w-full text-left text-black">
         <thead>
-          <tr className="border-b text-sm font-normal text-lightBlack">
+          <tr className="border-b text-body font-bold text-lightBlack">
             {columns.map((column, index) => (
               <th className="p-4" key={index}>
                 {column?.title}
@@ -45,28 +42,16 @@ const Table: React.FC<TableProps> = ({
           </tr>
         </thead>
         <tbody>
-          {displayedItems.map((pool:any) => (
-            <tr
-              key={pool.name}
-              className="border-b text-lightBlack !text-body font-normal"
-            >
-              <td className="p-4 flex gap-2">
-                <Image src={pool.icon} alt={pool.name} className="w-6 h-6" />
-                {pool.name}
+          {displayedItems.map((pool: any) => (
+            <tr key={pool.name} className="border-b !text-md font-medium">
+              <td className="p-4 flex !text-blue225 items-center gap-1">
+                {`${pool.owner.slice(0, 5)}...${pool.owner.slice(-4)}`}
+                <RedirectIcon className="w-3 h-3" />
+                <CopyIcon className="w-3 h-3" />
               </td>
-              <td className="p-4">{pool.tvl}</td>
-              <td className="p-4">{pool.unboostedApr}</td>
-              <td className="p-4">{pool.boostedApr}</td>
-              <td className="p-4">{pool.deposits}</td>
-              <td className="p-4 flex">
-                <Image src={EarnIcon} alt={pool.name} className="w-6 h-6" />
-                {pool.earned}
-              </td>
-              <td className="p-4">
-                <Link href={{pathname:"/earn-manage",query:{address:pool.poolAddress}}} className="bg-lightBlue text-body text-white py-2 px-4 rounded cursor-pointer">
-                  Manage
-                </Link>
-              </td>
+              <td className="p-4 !text-[#18E180]">{pool.cr}</td>
+              <td className="p-4">{pool.dept}</td>
+              <td className="p-4">{pool.newDept}</td>
             </tr>
           ))}
         </tbody>
@@ -102,4 +87,4 @@ const Table: React.FC<TableProps> = ({
   );
 };
 
-export default Table;
+export default RedeemTable;

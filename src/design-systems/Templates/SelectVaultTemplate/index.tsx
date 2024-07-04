@@ -27,7 +27,7 @@ const SelectVaultTemplate: React.FC<SelectVaultsTempProps> = ({address}) => {
         </Typography> */}
 
         <div className="w-full flex justify-center">
-          <SelectVaultForm address={address} />
+          <SelectVaultForm urlAddress={address} />
         </div>
       </div>
     </div>

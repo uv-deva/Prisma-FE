@@ -262,11 +262,46 @@ export const PrismaLRT: React.FC = () => {
   );
 };
 
-export const BackArrow: React.FC<IconProps> = ({className}) => {
+export const BackArrow: React.FC<IconProps> = ({ className }) => {
   return (
-    <svg  className={className} focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="ArrowRightAltIcon"><path d="M16.01 11H4v2h12.01v3L20 12l-3.99-4z"></path></svg>
+    <svg
+      className={className}
+      focusable="false"
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      data-testid="ArrowRightAltIcon"
+    >
+      <path d="M16.01 11H4v2h12.01v3L20 12l-3.99-4z"></path>
+    </svg>
   );
 };
 
+export const RedirectIcon: React.FC<IconProps> = ({ className }) => {
+  return (
+    <svg
+      className={className}
+      focusable="false"
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      data-testid="LaunchIcon"
+    >
+      <path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path>
+    </svg>
+  );
+};
 
+export const CopyIcon: React.FC<IconProps> = ({ className }) => {
+  return (
+    <svg
+    className={className}
+    focusable="false"
+    aria-hidden="true"
+    viewBox="0 0 24 24"
+    data-testid="ContentCopyIcon"
+  >
+    <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path>
+  </svg>
+  
+  );
+};
 

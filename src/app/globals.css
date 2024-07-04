@@ -29,6 +29,10 @@
 }
 
 @layer components {
+
+  .container {
+    @apply mx-auto w-full max-w-[1440px] px-4 xlg:px-[80px];
+  }
   /* The set of Typography component classes */
   .typography-h1 {
     @apply font-RobotoCondensed text-h1 font-bold leading-h1 tracking-h1;

@@ -153,6 +153,7 @@ const config: Config = {
       boxShadow: (theme: any) => ({
         "button-active": `rgba(49, 110, 255, 0.5) 0px 0px 0px 4px`,
         "card-shadow":"rgba(0, 0, 0, 0.1) 0px 0px 4px",
+        "border-shadow":"rgba(0, 0, 0, 0.1) 0px 4px 4px 0px",
       }),
       backgroundImage: () => ({
         "gradient-radial-main":

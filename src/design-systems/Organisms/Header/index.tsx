@@ -8,8 +8,10 @@ import { useEffect, useState } from "react";
 import { useAccount, useDisconnect } from "wagmi";
 import { ConnectModel } from "../Model/ConnectModel";
 import { toast } from "react-toastify";
+import { MoreDropDown } from "@/design-systems/Atoms/MoreDropdown";
 
 const Header: React.FC = () => {
+  const [chainDropdown, setChainDropdown] = useState<boolean>(false);
   const { address, isConnected } = useAccount();
   const { disconnect } = useDisconnect();
   const [showModel, setShowModel] = useState(false);
@@ -31,10 +33,15 @@ const Header: React.FC = () => {
       setUserAddress(`${address.slice(0, 4)}...${address.slice(-4)}`);
       toast.success("Wallet connected successfully");
       setShowModel(false);
-    }else{
+    } else {
       toast.warning("Wallet not connected");
     }
   }, [address]);
+
+  const handleChainDropdown = () => {
+    setChainDropdown(!chainDropdown);
+  };
+
   return (
     <div className="bg-gradient-radial-main  pb-[1px] nav-image text-black relative">
       <div className="items-center w-full justify-between flex gap-3  p-[8px] bg-white">
@@ -64,22 +71,25 @@ const Header: React.FC = () => {
                 )}
               </div>
             ))}
-            <div className="font-normal items-center flex  text-darkBlue no-underline px-[40px] pt-[15px] pb-[20px] text-[14px]">
+            <div
+              className="font-normal items-center relative flex cursor-pointer  text-darkBlue no-underline px-[40px] pt-[15px] pb-[20px] text-[14px]"
+              onClick={() => handleChainDropdown()}
+            >
               <Typography>MORE</Typography>
               <div className="h-[24px] w-[24px]">
                 <DropDownIcon />
               </div>
+
+              <MoreDropDown isChainDropdownOpen={chainDropdown} />
             </div>
           </div>
         </div>
         <div className="flex gap-4 items-center pr-[26px] ">
           <StarIcon />
           <button
-          onClick={() => {
-            isConnected
-              ? disconnect()
-              : handle();
-          }}
+            onClick={() => {
+              isConnected ? disconnect() : handle();
+            }}
             className="text-[14px] py-[6px] px-[20px] bg-blue225 text-white  shadow-button-active rounded-[4px]"
           >
             {isConnected && address ? `${userAddress}` : "Connect wallet"}
