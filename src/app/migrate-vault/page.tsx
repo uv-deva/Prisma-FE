@@ -1,6 +1,12 @@
-import MigrateVaultTemplate from "@/design-systems/Templates/MigrateVaultTemplate";
+import MigrateVaultPageTemplate from "@/design-systems/Templates/MigrateVaultPageTemplate"
 
-const MigrateVault: React.FC = () => {
-  return (<MigrateVaultTemplate />);
-};
+
+const MigrateVault:React.FC = ()=>{
+    return (
+        <>
+        <MigrateVaultPageTemplate />
+        </>
+    )
+}
+
 export default MigrateVault

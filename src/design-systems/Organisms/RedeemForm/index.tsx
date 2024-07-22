@@ -38,7 +38,7 @@ const RedeemForm: React.FC<RedeemFormProps> = ({ urlAddress }) => {
       <div className="bg-white w-[564px] max-w-[564px] rounded-sm shadow-lg items-center">
         <div className="bg-darkBlue flex justify-center py-4 px-3 items-center rounded-t-sm">
           <Typography className="font-semibold text-body text-white">
-            {data?.type ? data.type : "mkUSD"}
+           Redeem {data?.type ? data.type : "mkUSD"}
           </Typography>
         </div>
 

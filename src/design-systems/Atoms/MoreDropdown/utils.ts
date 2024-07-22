@@ -14,13 +14,13 @@ export const dropdownOptions = [
   {
     id: 3,
     label: "MIGRATE VAULT",
-    path: "",
+    path: "migrate-vault",
     urlAddress: "",
   },
   {
     id: 4,
     label: "VAULT LIST",
-    path: "",
+    path: "vault-list",
     urlAddress: "",
   },
   {

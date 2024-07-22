@@ -43,7 +43,9 @@ export const MoreDropDown: React.FC<DropdownProps> = ({
       const newPath =
         selectedOption.path === "redeem"
           ? `/redeem/${selectedOption.urlAddress}`
-          : `/${selectedOption.path}/${selectedOption.urlAddress}`;
+          // : `/${selectedOption.path}/${selectedOption.urlAddress}`;
+          : `/${selectedOption.path}`;
+
 
       router.replace(newPath);
     }
