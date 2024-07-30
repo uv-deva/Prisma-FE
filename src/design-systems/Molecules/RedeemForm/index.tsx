@@ -16,7 +16,6 @@ const RedeemForm: React.FC<RedeemFormProps> = ({ urlAddress }) => {
   const [amount, setAmount] = useState<string>("");
   const handleTabChange = (tab: string) => setActiveTab(tab);
 
-  console.log("redForm", urlAddress);
 
   const handleThemeChange = (isChecked: boolean) => {
     setIsSendAutometic(true);
@@ -43,7 +42,7 @@ const RedeemForm: React.FC<RedeemFormProps> = ({ urlAddress }) => {
         </div>
 
         <div className="px-8">
-          <div className="border border-blue225 bg-[#316eff4d] p-3 text-md font-normal text-blue225 flex items-center justify-center p-3 rounded-sm mt-4">
+          <div className="border border-blue225 bg-[#316eff4d] p-3 text-md font-normal text-blue225 flex items-center justify-center rounded-sm mt-4">
             <Typography className="w-1/2">
               {/* A minimum debt of 1800{" "}
               {data?.prismaType === "prisma" ? "mkUSD" : "ULTRA"} is required */}
@@ -126,7 +125,7 @@ const RedeemForm: React.FC<RedeemFormProps> = ({ urlAddress }) => {
             </div>
           </div>
 
-          <div className="w-full bg-theme-gradient !w-full h-[1px] mt-2"></div>
+          <div className="bg-theme-gradient !w-full h-[1px] mt-2"></div>
 
           <div className="font-normal text-md text-darkBlue px-8 mt-4 gap-2">
             <Typography className="font-bold mb-3 text-left">

@@ -44,7 +44,6 @@ const SelectVaultForm: React.FC<VaultsFormProps> = ({ urlAddress }) => {
     const cardData = vaultsCardPrismaData.find(
       (card) => card.address === urlAddress
     );
-    console.log(cardData);
     setData(cardData);
   }, [urlAddress]);
 
@@ -97,7 +96,6 @@ const SelectVaultForm: React.FC<VaultsFormProps> = ({ urlAddress }) => {
   };
 
   const handleOpenTrove = async () => {
-    debugger;
     try {
       setIsLoadingTrove(true);
       const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -107,14 +105,32 @@ const SelectVaultForm: React.FC<VaultsFormProps> = ({ urlAddress }) => {
         BorrowerABI,
         signer
       );
-      // const estimatedGasLimit = await tokenContract.estimateGas.openTrove(
-      //   ethers.utils.parseUnits(amount.toString(), 18)
-      // );
+  
+      // Prepare parameters
       const _maxFeePercentage = ethers.utils.parseUnits(amount.toString(), 18);
       const _collateralAmount = ethers.utils.parseUnits(amount.toString(), 18);
       const _debtAmount = ethers.utils.parseUnits(amount.toString(), 18);
       const _upperHint = "0x0000000000000000000000000000000000000000";
       const _lowerHint = "0x0000000000000000000000000000000000000000";
+  
+      // Estimate gas limit
+      let estimatedGasLimit
+      try {
+        estimatedGasLimit = await tokenContract.estimateGas.openTrove(
+          OpenTroveContractAdd,
+          address,
+          _maxFeePercentage,
+          _collateralAmount,
+          _debtAmount,
+          _upperHint,
+          _lowerHint
+        );
+      } catch (error) {
+        console.error("Error estimating gas:", error);
+        estimatedGasLimit = ethers.utils.hexlify(3401649); // Default gas limit in case of error
+      }
+  
+      // Send transaction
       const tx = await tokenContract.openTrove(
         OpenTroveContractAdd,
         address,
@@ -123,20 +139,22 @@ const SelectVaultForm: React.FC<VaultsFormProps> = ({ urlAddress }) => {
         _debtAmount,
         _upperHint,
         _lowerHint,
-        { gasLimit: ethers.utils.hexlify(3401649) }
-        // { gasLimit: estimatedGasLimit }
+        { gasLimit: estimatedGasLimit }
       );
-      const TransactionResponse = await tx.wait();
-      if (TransactionResponse.transactionHash) {
+  
+      // Wait for transaction to be mined
+      const transactionResponse = await tx.wait();
+      if (transactionResponse.transactionHash) {
         setResSuccess(true);
       }
     } catch (error) {
-      console.error("Error comes in trove function", error);
+      console.error("Error in trove function:", error);
       toast.error("Failed to execute trove function");
     } finally {
       setIsLoadingTrove(false);
     }
   };
+  
 
   const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAmount(e.target.value);
@@ -161,7 +179,7 @@ const SelectVaultForm: React.FC<VaultsFormProps> = ({ urlAddress }) => {
 
   return resSuccess ? (
     <div className="flex flex-col gap-4  w-[450px] max-w-[450px]">
-      <div className="bg-white w-full min-h-[200px] flex items-center flex-col gap-4 justify-center rounded-sm shadow-lg items-center mt-4">
+      <div className="bg-white w-full min-h-[200px] flex items-center flex-col gap-4 justify-center rounded-sm shadow-lg mt-4">
         <Typography className="text-darkBlue text-subtitle font-semibold text-center">
           Successfully minted 2.167{" "}
           {data?.prismaType === "prisma" ? "mkUSD" : "ULTRA"}
@@ -369,7 +387,7 @@ const SelectVaultForm: React.FC<VaultsFormProps> = ({ urlAddress }) => {
                 200 {data?.prismaType === "prisma" ? "mkUSD" : "ULTRA"}
               </Typography>
             </div>
-            <div className="w-full bg-theme-gradient !w-full h-[1px]"></div>
+            <div className="bg-theme-gradient !w-full h-[1px]"></div>
             <div className="flex justify-between">
               <Typography>Your total debt</Typography>
               <Typography className="text-[#16C720]">

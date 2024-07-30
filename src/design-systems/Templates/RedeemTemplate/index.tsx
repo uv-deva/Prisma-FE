@@ -11,7 +11,6 @@ import { RedeemFetchData } from "@/design-systems/Molecules/RedeemForm/utils";
 const RedeemPageTemplate: React.FC<RedeemTemplateProps> = ({ urlAddress }) => {
   const [data, setData] = useState<RedeemDataProps | undefined>(undefined);
 
-  console.log("redTemp", urlAddress);
 
   useMemo(() => {
     const cardData = RedeemFetchData?.find(

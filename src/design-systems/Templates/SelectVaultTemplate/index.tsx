@@ -6,7 +6,6 @@ import Link from "next/link";
 import { SelectVaultsTempProps } from "./interface";
 
 const SelectVaultTemplate: React.FC<SelectVaultsTempProps> = ({address}) => {
-console.log(address)
   return (
     <div className="">
       <Link
