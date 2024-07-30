@@ -26,7 +26,7 @@ export const dropdownOptions = [
   {
     id: 5,
     label: "INTEGRATIONS",
-    path: "",
+    path: "integrations",
     urlAddress: "",
   },
 ];

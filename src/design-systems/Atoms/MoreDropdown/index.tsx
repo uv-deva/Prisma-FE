@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import Typography from "../Typography";
-import EarnIcon from "@/assets/Icons/earnedIcon.svg";
-import MkIcon from "@/assets/Icons/mkIcon.svg";
-import UltraIcon from "@/assets/Icons/ultraIcon.svg";
+import EarnIcon from "@/assets/image/Icons/earnedIcon.svg";
+import MkIcon from "@/assets/image/Icons/mkIcon.svg";
+import UltraIcon from "@/assets/image/Icons/ultraIcon.svg";
 import { DropdownProps } from "./interface";
 import { dropdownOptions, dropdownSocialOptions } from "./utils";
 import Image from "next/image";

@@ -1,4 +1,4 @@
-interface PoolData {
+export interface PoolData {
     name: string;
     tvl: string;
     unboostedApr: string;

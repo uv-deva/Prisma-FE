@@ -1,13 +1,18 @@
-"use client";
+
 import "../assets/css/main.css";
 import "react-toastify/dist/ReactToastify.css";
-
+import { Metadata } from 'next'
 import { ToastContainer } from "react-toastify";
 import NoFirstRender from "@/design-systems/Atoms/NoFirstRender";
 import Footer from "@/design-systems/Organisms/Footer";
 import Header from "@/design-systems/Organisms/Header";
-import { Context } from "./context";
+import { Context } from "@/context";
 import backgroundImage from "../assets/image/bg-light.png"
+
+export const metadata: Metadata = {
+  title: 'Prisma | Home',
+  description: 'Prisma Data',
+}
 
 export default function RootLayout({
   children,

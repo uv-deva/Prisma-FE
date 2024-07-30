@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Button from "@/design-systems/Atoms/Button";
 import Image from "next/image";
-import EarnIcon from "@/assets/Icons/earnedIcon.svg";
-import { TableProps } from "./interface";
+import EarnIcon from "@/assets/image/Icons/earnedIcon.svg";
+import { PoolData, TableProps } from "./interface";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
@@ -12,7 +12,7 @@ const Table: React.FC<TableProps> = ({
   isPagination = false,
 }) => {
 
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState<number>(1);
   const itemsPerPage = 4;
 
   const router = useRouter();
@@ -45,7 +45,7 @@ const Table: React.FC<TableProps> = ({
           </tr>
         </thead>
         <tbody>
-          {displayedItems.map((pool:any) => (
+          {displayedItems.map((pool:PoolData) => (
             <tr
               key={pool.name}
               className="border-b text-lightBlack !text-body font-normal"

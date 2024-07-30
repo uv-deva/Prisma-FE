@@ -1,7 +1,7 @@
 "use client";
 
 import Typography from "@/design-systems/Atoms/Typography";
-import MigrationTable from "@/design-systems/Organisms/MigrationTable";
+import MigrationTable from "@/design-systems/Molecules/MigrationTable";
 import { MigrationTableData, MigrationcolumnData } from "./utils";
 
 const MigrateVaultPageTemplate: React.FC = () => {

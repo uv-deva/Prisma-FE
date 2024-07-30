@@ -1,4 +1,4 @@
-type AddressString = `0x${string}`
+export type AddressString = `0x${string}`
 
 export type AnyFunction = (...args: any[]) => any
 

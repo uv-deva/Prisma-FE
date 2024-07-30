@@ -4,7 +4,7 @@ import {  tabs, vaultsCardPrismaData, vaultsCardPrismaLRTData } from './utils';
 import { PrismaSvg, PrismaLRT } from "@/design-systems/Atoms/Icons";
 import Typography from '@/design-systems/Atoms/Typography';
 import Button from '@/design-systems/Atoms/Button';
-import VaultsCard from '@/design-systems/Organisms/VaultsCard';
+import VaultsCard from '@/design-systems/Molecules/VaultsCard';
 
 
 

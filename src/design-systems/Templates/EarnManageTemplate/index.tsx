@@ -1,22 +1,23 @@
 "use client";
 
-import { InfoOutlineIcon } from "@/assets/icons";
+import { InfoOutlineIcon } from "@/design-systems/Atoms/Icons";
 import Typography from "@/design-systems/Atoms/Typography";
 import { ArrowLeftIcon } from "@heroicons/react/16/solid";
 import { useEffect, useMemo, useState } from "react";
 import { Deposit, Withdraw } from "./tabsEarn";
 import { useRouter, useSearchParams } from "next/navigation";
-import { bigPoolData } from "../PooltableTemplate/utils";
+import { bigPoolData, bigPoolDataType } from "../PooltableTemplate/utils";
 import { useAccount } from "wagmi";
+import { UserAddressType } from "./interface";
 
 const EarnManageTemplate: React.FC = () => {
   const { address, isConnected } = useAccount();
-  const [activeTab, setActiveTab] = useState(0);
-  const [data, setData] = useState<any>(undefined);
+  const [activeTab, setActiveTab] = useState<number>(0);
+  const [data, setData] = useState<bigPoolDataType | undefined>(undefined);
   const searchParams = useSearchParams()
   const poolAddress = searchParams.get('address')
   const router = useRouter();
-  const [userAddress, setUserAddress] = useState<any>({
+  const [userAddress, setUserAddress] = useState<UserAddressType>({
     tokenAdd:"",
     poolAdd:""
   });
@@ -30,11 +31,11 @@ const EarnManageTemplate: React.FC = () => {
   }, [poolAddress]);
   useEffect(() => {
     if (address) {
-      setUserAddress((prevState:any) => ({
+      setUserAddress((prevState:UserAddressType) => ({
         ...prevState,
         tokenAdd: `${address.slice(0, 4)}...${address.slice(-4)}`
       }));
-      setUserAddress((prevState:any) => ({
+      setUserAddress((prevState:UserAddressType) => ({
         ...prevState,
         poolAdd: `${data?.poolAddress.slice(0, 4)}...${data?.poolAddress.slice(-4)}`
       }));

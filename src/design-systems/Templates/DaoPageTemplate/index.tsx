@@ -1,5 +1,5 @@
 "use client";
-import { InfoOutlineIcon } from "@/assets/icons";
+import { InfoOutlineIcon } from "@/design-systems/Atoms/Icons";
 import { EmissionTab } from "@/design-systems/Atoms/EmissionTab";
 import Typography from "@/design-systems/Atoms/Typography";
 import Link from "next/link";

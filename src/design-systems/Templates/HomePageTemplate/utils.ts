@@ -1,4 +1,4 @@
-import { VaultType } from "@/design-systems/Organisms/VaultsCard/interface";
+import { VaultType } from "@/design-systems/Molecules/VaultsCard/interface";
 
 export const tabs = [
     { name: 'prisma', label: 'prisma'},

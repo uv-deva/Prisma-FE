@@ -1,5 +1,5 @@
-import MkIcon from "@/assets/Icons/mkIcon.svg";
-import UltraIcon from "@/assets/Icons/ultraIcon.svg";
+import MkIcon from "@/assets/image/Icons/mkIcon.svg";
+import UltraIcon from "@/assets/image/Icons/ultraIcon.svg"
 import { ColumnData } from "@/design-systems/Atoms/Table/interface";
 
 export const poolData = [

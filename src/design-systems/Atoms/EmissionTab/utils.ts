@@ -33,3 +33,12 @@ export const DAOdata = [
   },
   
 ];
+
+export interface DaoDataInterface {
+  label: string,
+  img: string
+  voteFrom: string,
+  voteTo: string,
+  emissionfrom: string,
+  emissionTop: string,
+}

@@ -2,10 +2,10 @@
 import SelectVaultTemplate from "@/design-systems/Templates/SelectVaultTemplate";
 import { SelectVaultPageProps } from "./interface";
 
-const SelectVaultPage: React.FC<SelectVaultPageProps> = () => {
+const SelectVaultPage: React.FC<SelectVaultPageProps> = ({params}) => {
   return (
     <>
-      <SelectVaultTemplate />
+      <SelectVaultTemplate address={params.Address} />
     </>
   );
 };

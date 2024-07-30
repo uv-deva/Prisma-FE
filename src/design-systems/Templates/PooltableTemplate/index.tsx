@@ -1,4 +1,4 @@
-import PoolTable from "@/design-systems/Organisms/PoolTable";
+import PoolTable from "@/design-systems/Molecules/PoolTable";
 import { useState } from "react";
 import { bigPoolData } from "./utils";
 import Input from "@/design-systems/Atoms/Input";

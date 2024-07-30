@@ -1,4 +1,4 @@
-import UltraIcon from "@/assets/Icons/ultraIcon.svg";
+import UltraIcon from "@/assets/image/Icons/ultraIcon.svg";
 
 export const bigPoolData = [
   {
@@ -299,3 +299,16 @@ export const bigPoolData = [
     poolAddress: "0x6953504F2f4537D7a7B4024508f321f7816BB6ED",
   },
 ];
+
+
+export interface bigPoolDataType  {
+  name: string
+  type: string
+  tvl: string
+  unboostedApr: string
+  boostedApr: string
+  deposits: string
+  earned: string
+  icon: any
+  poolAddress: string
+}

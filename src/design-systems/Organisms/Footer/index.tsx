@@ -1,4 +1,4 @@
-import { BookIcon, Discord, LightingIcon, Sport, Telegram, Twitter } from "@/assets/icons";
+import { BookIcon, Discord, LightingIcon, Sport, Telegram, Twitter } from "@/design-systems/Atoms/Icons";
 import Typography from "@/design-systems/Atoms/Typography";
 
 const Footer: React.FC = () => {

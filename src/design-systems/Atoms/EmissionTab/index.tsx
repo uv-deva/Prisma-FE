@@ -10,7 +10,7 @@ type TabsProps = {
   tabs: TabProps[];
 };
 export const EmissionTab = () => {
-  const [activeTab, setActiveTab] = useState(0);
+  const [activeTab, setActiveTab] = useState<number>(0);
   const tabs = [
     { label: "Emission", content: <Emission /> },
     { label: "Proposals", content: <Emission /> },

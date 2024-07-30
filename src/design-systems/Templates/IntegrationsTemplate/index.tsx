@@ -1,11 +1,11 @@
 "use client";
-import { DefillamaIcon } from "@/assets/icons";
+import { DefillamaIcon } from "@/design-systems/Atoms/Icons";
 import { IMG } from "@/assets/image";
 import Typography from "@/design-systems/Atoms/Typography";
 import { useState } from "react";
 
 const IntegrationsTemplate: React.FC = () => {
-  const [activeTab, setActiveTab] = useState(0);
+  const [activeTab, setActiveTab] = useState<number>(0);
   const tabHead = ["All Integrations (11)", "Bridge", "Defi", "Tools"];
 
   return (

@@ -5,9 +5,9 @@ import { tabs } from "../HomePageTemplate/utils";
 import { PrismaLRT, PrismaSvg } from "@/design-systems/Atoms/Icons";
 import Typography from "@/design-systems/Atoms/Typography";
 import Image from "next/image";
-import { DropDownIcon } from "@/assets/icons";
-import ethIcon from "@/assets/Icons/ethIcon.svg";
-import VaultListTable from "@/design-systems/Organisms/VaultListTable";
+import { DropDownIcon } from "@/design-systems/Atoms/Icons"
+import ethIcon from "@/assets/image/Icons/ethIcon.svg";
+import VaultListTable from "@/design-systems/Molecules/VaultListTable";
 import { VaultListData, vaultcolumnData } from "./utils";
 
 

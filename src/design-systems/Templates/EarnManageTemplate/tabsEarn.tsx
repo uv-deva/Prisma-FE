@@ -1,17 +1,22 @@
-import { ABI } from "@/design-systems/web3Utils/ABI";
-import { ApproveABI } from "@/design-systems/web3Utils/ApproveABI";
+import { ABI } from "@/abis/ABI";
+import { ApproveABI } from "@/abis/ApproveABI";
+import { AddressString } from "@/interfaces";
 import {
   DebtTokenContractAdd,
   StabilityPoolContractAdd,
-} from "@/design-systems/web3Utils/ContractAddress";
+} from "@/utils/Contract";
 import { ethers } from "ethers";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useAccount } from "wagmi";
-import { bigPoolData } from "../PooltableTemplate/utils";
+import { DepositProps, WithdrawProps } from "./interface";
 
-const approveToken = async (spenderAdd: any, amount: number) => {
+const approveToken = async (
+  spenderAdd: any,
+  amount: number,
+  setIsLoadingApprove: any
+) => {
   toast.info("Please wait...");
   if (!window.ethereum || !window.ethereum.isMetaMask) {
     console.error("MetaMask is not installed or not enabled.");
@@ -32,23 +37,23 @@ const approveToken = async (spenderAdd: any, amount: number) => {
       ethers.utils.parseUnits(amount.toString(), 18)
     );
     await tx.wait();
-
+    setIsLoadingApprove(false);
     toast.success("Token approved successfully.");
     return true;
   } catch (error) {
+    setIsLoadingApprove(false);
     console.error("Error approving token:", error);
     toast.error("Failed to approve token.");
     return false;
   }
 };
 
-export const Deposit = ({data}:any) => {
+export const Deposit = ({ data }: DepositProps) => {
+  const [isLoadingApprove, setIsLoadingApprove] = useState<boolean>(false);
   const { address, isConnected } = useAccount();
-  const [balance, setBalance] = useState<any>(null);
+  const [balance, setBalance] = useState<string | null>(null);
   const router = useRouter();
-  const [deposit, setDeposit] = useState(0);
-
-
+  const [deposit, setDeposit] = useState<number>(0);
   const fetchBalance = async () => {
     if (address) {
       try {
@@ -62,54 +67,57 @@ export const Deposit = ({data}:any) => {
   };
   useEffect(() => {
     fetchBalance();
-  }, []);
-  var balanceDisplay = balance && Math.round(balance * 1000) / 1000;
-
-
-  const HandleConnect = async () => {
+  }, [address]);
+  const balanceDisplay =
+    balance && Math.round(parseFloat(balance) * 1000) / 1000;
+  const handleConnect = async () => {
     if (!isConnected) {
       toast.warning("Please connect your wallet.");
       return;
     }
     if (deposit === 0) {
-      toast.warning("Please enter the field...");
+      toast.warning("Please enter an amount.");
       return;
     }
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
-
     const spenderAdd = address;
     const amount = deposit;
-    const approve = await approveToken(spenderAdd, amount);
-
-    if (approve) {
-      toast.info("Please wait...");
-      const StabilityContract = new ethers.Contract(
-        StabilityPoolContractAdd,
-        ABI,
-        signer
+    try {
+      setIsLoadingApprove(true);
+      const approve = await approveToken(
+        spenderAdd,
+        amount,
+        setIsLoadingApprove
       );
-
-      try {
-        const estimatedGasLimit =
-          await StabilityContract.estimateGas.provideToSP(
-            ethers.utils.parseUnits(amount.toString(), 18)
-          );
-
+      console.log("approve", approve);
+      if (approve) {
+        setIsLoadingApprove(true);
+        toast.info("Please wait...");
+        const StabilityContract = new ethers.Contract(
+          StabilityPoolContractAdd,
+          ABI,
+          signer
+        );
+        // const estimatedGasLimit = await StabilityContract.estimateGas.provideToSP(
+        //   ethers.utils.parseUnits(amount.toString(), 18)
+        // );
         const tx = await StabilityContract.provideToSP(
           ethers.utils.parseUnits(amount.toString(), 18),
-          { gasLimit: estimatedGasLimit }
+          { gasLimit: ethers.utils.hexlify(3401649) }
+          // { gasLimit: estimatedGasLimit }
         );
         const receipt = await tx.wait();
         toast.success("Deposit successful!");
+        setIsLoadingApprove(false);
         router.push("/earn");
-      } catch (error) {
-        console.error("Error during deposit:", error);
-        toast.error("Failed to deposit.");
       }
+    } catch (error) {
+      setIsLoadingApprove(false);
+      console.error("Error during deposit:", error);
+      toast.error("Failed to deposit.");
     }
   };
-
   return (
     <div className="">
       <div className="flex justify-between w-full text-lightBlack text-[12px] sm:text-[14px] font-medium">
@@ -126,31 +134,29 @@ export const Deposit = ({data}:any) => {
             type="number"
             className="w-full bg-transparent focus-visible:outline-none"
             placeholder="Enter an amount"
-            onChange={(e: any) => setDeposit(e.target.value)}
+            onChange={(e) => setDeposit(Number(e.target.value))}
           />
-          {/* <div className="bg-primary rounded py-[1px] px-1 text-white flex items-center text-[11px]">
-            MAX
-          </div> */}
         </div>
         <div className="flex items-center bg-lightBlack p-2 text-white text-[12px] sm:text-[14px] font-bold rounded-r-[7px]">
           {data?.name}
         </div>
       </div>
       <button
-        onClick={() => HandleConnect()}
+        onClick={handleConnect}
         className="bg-primary py-[6px] px-[16px] rounded w-full text-[14px] font-bold shadow-button-active text-white"
       >
-        Deposit
+        {isLoadingApprove ? "Loading..." : "Deposit"}
       </button>
     </div>
   );
 };
 
-export const Withdraw = ({data}:any) => {
+export const Withdraw = ({ data }: WithdrawProps) => {
+  const [isLoadingApprove, setIsLoadingApprove] = useState<boolean>(false);
   const { address, isConnected } = useAccount();
   const router = useRouter();
-  const [Withdraw, setWithdraw] = useState(0);
-  const [balance, setBalance] = useState<any>(null);
+  const [withdrawAmount, setWithdrawAmount] = useState<number>(0);
+  const [balance, setBalance] = useState<string | null>(null);
   const fetchBalance = async () => {
     if (address) {
       try {
@@ -164,47 +170,57 @@ export const Withdraw = ({data}:any) => {
   };
   useEffect(() => {
     fetchBalance();
-  }, []);
-  var balanceDisplay = balance && Math.round(balance * 1000) / 1000;
-  const HandleConnect = async () => {
+  }, [address]);
+  const balanceDisplay =
+    balance && Math.round(parseFloat(balance) * 1000) / 1000;
+  const handleConnect = async () => {
     if (!isConnected) {
       toast.warning("Please connect your wallet.");
       return;
     }
-    if (Withdraw === 0) {
-      toast.warning("Please enter the field...");
+    if (withdrawAmount <= 0) {
+      toast.warning("Please enter a valid amount.");
       return;
     }
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const signer = provider.getSigner();
-
-    const spenderAdd = address;
-    const amount = Withdraw;
-    const approve = await approveToken(spenderAdd, amount);
-
-    if (approve) {
-      toast.info("Please wait...");
-
-      const StabilityContract = new ethers.Contract(
-        StabilityPoolContractAdd,
-        ABI,
-        signer
+    try {
+      setIsLoadingApprove(true);
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      const spenderAdd = address;
+      const amount = withdrawAmount;
+      const approve = await approveToken(
+        spenderAdd,
+        amount,
+        setIsLoadingApprove
       );
-      const estimatedGasLimit = await StabilityContract.estimateGas.provideToSP(
-        ethers.utils.parseUnits(amount.toString(), 18)
-      );
-      const tx = await StabilityContract.withdrawFromSP(
-        ethers.utils.parseUnits(amount.toString(), 18),
-        { gasLimit: estimatedGasLimit }
-      );
-      const receipt = await tx.wait();
-      toast.success("Withdraw successfully!");
-      router.push("/earn");
+      if (approve) {
+        setIsLoadingApprove(true);
+        toast.info("Please wait...");
+        const StabilityContract = new ethers.Contract(
+          StabilityPoolContractAdd,
+          ABI,
+          signer
+        );
+        // const estimatedGasLimit = await StabilityContract.estimateGas.withdrawFromSP(
+        //   ethers.utils.parseUnits(amount.toString(), 18)
+        // );
+        const tx = await StabilityContract.withdrawFromSP(
+          ethers.utils.parseUnits(amount.toString(), 18),
+          { gasLimit: ethers.utils.hexlify(3401649) }
+        );
+        const receipt = await tx.wait();
+        toast.success("Withdraw successful!");
+        router.push("/earn");
+        setIsLoadingApprove(false);
+      }
+    } catch (error) {
+      setIsLoadingApprove(false);
+      console.error("Error during withdrawal:", error);
+      toast.error("An error occurred during withdrawal.");
     }
   };
-
   return (
-    <div className="">
+    <div>
       <div className="flex justify-between w-full text-lightBlack text-[12px] sm:text-[14px] font-medium">
         <div>
           Withdraw <span className="font-bold">{data.name}</span>
@@ -219,21 +235,18 @@ export const Withdraw = ({data}:any) => {
             type="number"
             className="w-full bg-transparent focus-visible:outline-none"
             placeholder="Enter an amount"
-            onClick={(e: any) => setWithdraw(e.target.value)}
+            onChange={(e) => setWithdrawAmount(Number(e.target.value))}
           />
-          {/* <div className="bg-primary rounded py-[1px] px-1 text-white flex items-center text-[11px]">
-            MAX
-          </div> */}
         </div>
         <div className="flex items-center bg-lightBlack p-2 text-white text-[12px] sm:text-[14px] font-bold rounded-r-[7px]">
           {data.name}
         </div>
       </div>
       <button
-        onClick={() => HandleConnect()}
+        onClick={handleConnect}
         className="bg-primary py-[6px] px-[16px] rounded w-full text-[14px] font-bold shadow-button-active text-white"
       >
-        Connect Wallet
+        {isLoadingApprove ? "Loading..." : "Withdraw"}
       </button>
     </div>
   );

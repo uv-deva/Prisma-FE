@@ -1,10 +1,10 @@
 import { ChevronUpDownIcon, ArrowRightIcon, ChevronDownIcon } from "@heroicons/react/16/solid";
 import Button from "../Button";
 import Typography from "../Typography";
-import { DAOdata } from "./utils";
-import { InfoOutlineIcon } from "@/assets/icons";
+import { DAOdata, DaoDataInterface } from "./utils";
+import { InfoOutlineIcon } from "@/design-systems/Atoms/Icons";
 
-export const Emission = () => {
+export const Emission: React.FC = () => {
   const EmissionTab = [
     { label: "All" },
     { label: "STABILITY POOL" },
@@ -60,7 +60,7 @@ export const Emission = () => {
             </tr>
           </thead>
           <tbody>
-            {DAOdata?.map((item: any, key: number) => (
+            {DAOdata?.map((item: DaoDataInterface, key: number) => (
               <tr key={key} className="text-body">
                 <td className="flex gap-2 items-center">
                   <img src={item.img} />

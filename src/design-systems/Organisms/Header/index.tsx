@@ -1,30 +1,25 @@
 "use client";
-import { DropDownIcon, HeartIcon, StarIcon } from "@/assets/icons";
+import { DropDownIcon, HeartIcon, StarIcon } from "@/design-systems/Atoms/Icons";
 import { IMG } from "@/assets/image";
 import Typography from "@/design-systems/Atoms/Typography";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useAccount, useDisconnect } from "wagmi";
-import { ConnectModel } from "../Model/ConnectModel";
+import { ConnectModel } from "@/design-systems/Molecules/Model/ConnectModel";
 import { toast } from "react-toastify";
 import { MoreDropDown } from "@/design-systems/Atoms/MoreDropdown";
+import { NavData } from "./utils";
 
 const Header: React.FC = () => {
   const [chainDropdown, setChainDropdown] = useState<boolean>(false);
   const { address, isConnected } = useAccount();
   const { disconnect } = useDisconnect();
-  const [showModel, setShowModel] = useState(false);
+  const [showModel, setShowModel] = useState<boolean>(false);
   const pathName = usePathname();
   const router = useRouter();
-  const [userAddress, setUserAddress] = useState("");
-  const NavData = [
-    { key: 0, label: "VAULTS", path: "/" },
-    { key: 1, label: "EARN", path: "/earn" },
-    { key: 2, label: "REWARDS", path: "/reward" },
-    { key: 3, label: "LOCK", path: "/lock" },
-    { key: 4, label: "DAO", path: "/dao" },
-  ];
+  const [userAddress, setUserAddress] = useState<string>("");
+
   const handle = () => {
     setShowModel(!showModel);
   };

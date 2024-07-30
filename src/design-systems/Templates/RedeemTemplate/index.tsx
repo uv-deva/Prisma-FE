@@ -1,12 +1,12 @@
 "use client";
 import { useMemo, useState } from "react";
 import Typography from "@/design-systems/Atoms/Typography";
-import RedeemForm from "@/design-systems/Organisms/RedeemForm";
+import RedeemForm from "@/design-systems/Molecules/RedeemForm";
 import { RedeemData, RedeemcolumnData } from "./utils";
-import RedeemTable from "@/design-systems/Organisms/RedeemTable";
+import RedeemTable from "@/design-systems/Molecules/RedeemTable";
 import { RedeemTemplateProps } from "./interface";
-import { RedeemDataProps } from "@/design-systems/Organisms/RedeemForm/interface";
-import { RedeemFetchData } from "@/design-systems/Organisms/RedeemForm/utils";
+import { RedeemDataProps } from "@/design-systems/Molecules/RedeemForm/interface";
+import { RedeemFetchData } from "@/design-systems/Molecules/RedeemForm/utils";
 
 const RedeemPageTemplate: React.FC<RedeemTemplateProps> = ({ urlAddress }) => {
   const [data, setData] = useState<RedeemDataProps | undefined>(undefined);

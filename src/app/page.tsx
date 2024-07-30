@@ -1,14 +1,9 @@
-import HomePageTemplate from '@/design-systems/Templates/HomePageTemplate'
-import { Metadata } from 'next'
+"use client"
 
-
-export const metadata: Metadata = {
-  title: 'Home',
-  description: 'Test Data',
-}
+import HomePageTemplate from "@/design-systems/Templates/HomePageTemplate";
 
 const HomePage: React.FC = () => {
-  return <HomePageTemplate />
-}
+  return <HomePageTemplate />;
+};
 
-export default HomePage
+export default HomePage;
